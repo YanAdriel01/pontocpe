@@ -1,0 +1,20 @@
+{
+    "slides": [
+        {
+            "src": "/img1.png",
+            "alt": "Imagem 1 carrosel"
+        },
+        {
+            "src": "/img2.png",
+            "alt": "Imagem 2 carrosel"
+        },
+        {
+            "src": "/img3.png",
+            "alt": "Imagem 3 carrosel"
+        },
+        {
+            "src": "/img4.png",
+            "alt": "Imagem 4 carrosel"
+        }
+    ]
+}

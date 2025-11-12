@@ -10,12 +10,30 @@ export const InputString = styled.input`
   border: none;
   background-color: #F5F5F5;
   padding-left: 23px;
+
+  //menor tamanho: até 320px
+    @media (max-width: 320px){
+
+        width: 250px;
+        height: 30px;
+        font-size: 12px;
+    }
+
+
 `;
 
 const PasswordWrapper = styled.div`
   position: relative;
   width: 650px;
   height: 54px;
+
+  //menor tamanho: até 320px
+    @media (max-width: 320px){
+
+        width: 250px;
+        height: 30px;
+        font-size: 12px;
+    }
 `;
 
 const PasswordInputField = styled(InputString)`
@@ -58,6 +76,12 @@ const IconeOlho = styled.button`
   &:active {
     transform: translateY(-50%) scale(0.95);
   }
+  //menor tamanho: até 320px
+  @media (max-width: 320px){
+    width: 15px;
+    height: 15px;
+  }
+
 `;
 
 export const PasswordInput = ({ placeholder = "Senha", value, onChange }) => {

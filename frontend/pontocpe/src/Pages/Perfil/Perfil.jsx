@@ -1,5 +1,12 @@
-import { Header } from "../../Components/Components";
-import { LinkSessao,LinkSessaoWrapper } from "./style";
+import {    Button, 
+            Header, 
+            Titulo, 
+            ButtonWraper 
+        } from "../../Components/Components";
+import {    LinkSessao, 
+            LinkSessaoWrapper, 
+            InformacaoUsuario
+        } from "./style";
 import logo_cpe from "../../Images/logo_cpe.png";
 
 export default function Perfil(){
@@ -20,6 +27,23 @@ export default function Perfil(){
                 </LinkSessaoWrapper>
 
             </Header>
+
+            <Titulo>
+                Perfil
+            </Titulo>
+            
+            <InformacaoUsuario>
+                <h2> Nome: </h2>
+                <h2> E-mail: </h2>
+                <h2> Cargo: </h2>
+            </InformacaoUsuario>
+
+            <ButtonWraper>
+                <Button
+                    onClick={() => navigate("/")}
+                >EDITAR</Button>
+            </ButtonWraper>
+            
         </>
     )
 }

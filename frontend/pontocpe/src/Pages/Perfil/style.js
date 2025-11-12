@@ -31,3 +31,29 @@ export const LinkSessao = styled.a`
   }
 
 `;
+
+
+export const InformacaoUsuario = styled.div`
+
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  margin: 40px auto 0;
+  padding-left: 2%;
+  flex-direction: column;
+  gap: 16px;
+
+  width: 700px;
+  height: 300px;
+
+  border-radius: 20px;
+  
+  background-color: #696969;
+  h2{
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    background-color: #696969;
+    color: #FFE712;
+  }
+`;

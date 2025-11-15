@@ -1,6 +1,6 @@
 import { Header } from "../../Components/Components";
 import { LinkSessao,LinkSessaoWrapper } from "./style";
-import logo_cpe from "../../Images/logo_cpe.png";
+import logo_cpe from "../../Images/logo_cpe.svg";
 import { Carousel } from "../../Components/Carousel/Carousel";
 import carouselData from "../../data/CarouselData.json"
 

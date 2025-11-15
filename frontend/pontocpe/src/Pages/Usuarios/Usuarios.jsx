@@ -1,6 +1,6 @@
 import { Header } from "../../Components/Components";
 import { LinkSessao,LinkSessaoWrapper } from "./style";
-import logo_cpe from "../../Images/logo_cpe.png";
+import logo_cpe from "../../Images/logo_cpe.svg";
 
 export default function Usuarios(){
 

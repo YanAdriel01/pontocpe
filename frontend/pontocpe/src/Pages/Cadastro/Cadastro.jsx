@@ -9,10 +9,8 @@ import {
         ButtonWraper,
         Button
                 } from "../../Components/Components"
-import {
-        PasswordInput
-} from "../../Components/PasswordInput.jsx"
-import logo_cpe from "../../Images/logo_cpe.png"
+import {PasswordInput} from "../../Components/PasswordInput.jsx"
+import logo_cpe from "../../Images/logo_cpe.svg"
 
 
 

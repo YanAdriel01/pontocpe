@@ -58,6 +58,151 @@ export const CarouselContainer = styled.div`
     .indicator-btn.active {
         background-color: white; 
     }
+
+    //tablet pequeno: 769 - 1024px
+    @media (min-width: 769px) and (max-width: 1024px){
+        width: 690px; 
+        height: 393px;
+
+        .arrow-left {
+        left: 0.1rem; 
+        }
+
+        .arrow-right {
+        right: 0.1rem; 
+        }
+
+        .indicator-btn {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+            background-color: #ccc; 
+            cursor: pointer;
+        }
+
+        .arrow-left,
+        .arrow-right {
+            position: absolute;
+            z-index: 1; 
+            top: 50%; 
+            transform: translateY(-50%);
+            color: white;
+            background-color: #000000 ;
+            border-radius: 20px;
+            font-size: 1.5rem; 
+            cursor: pointer; 
+        }
+    }
+
+    //celulares médio/grande: 481 - 768px
+    @media (min-width: 481px) and (max-width: 768px){
+        width: 464px; 
+        height: 293px;
+
+        .arrow-left {
+        left: 0.1rem; 
+        }
+
+        .arrow-right {
+        right: 0.1rem; 
+        }
+
+        .indicator-btn {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+            background-color: #ccc; 
+            cursor: pointer;
+        }
+
+        .arrow-left,
+        .arrow-right {
+            position: absolute;
+            z-index: 1; 
+            top: 50%; 
+            transform: translateY(-50%);
+            color: white;
+            background-color: #000000 ;
+            border-radius: 20px;
+            font-size: 1.5rem; 
+            cursor: pointer; 
+        }
+    }
+    //celulares: 320 - 480px
+    @media (max-width: 480px){
+        
+        width: 321px; 
+        height: 193px;
+
+        .arrow-left {
+        left: 0.1rem; 
+        }
+
+        .arrow-right {
+        right: 0.1rem; 
+        }
+
+        .indicator-btn {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+            background-color: #ccc; 
+            cursor: pointer;
+        }
+
+        .arrow-left,
+        .arrow-right {
+            position: absolute;
+            z-index: 1; 
+            top: 50%; 
+            transform: translateY(-50%);
+            color: white;
+            background-color: #000000 ;
+            border-radius: 20px;
+            font-size: 1.5rem; 
+            cursor: pointer; 
+        }
+    }
+
+    //menor tamanho: 320px
+    @media (max-width: 320px){
+        
+        width: 240px; 
+        height: 173px;
+
+        .arrow-left {
+        left: 0.1rem; 
+        }
+
+        .arrow-right {
+        right: 0.1rem; 
+        }
+
+        .indicator-btn {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+            background-color: #ccc; 
+            cursor: pointer;
+        }
+
+        .arrow-left,
+        .arrow-right {
+            position: absolute;
+            z-index: 1; 
+            top: 50%; 
+            transform: translateY(-50%);
+            color: white;
+            background-color: #000000 ;
+            border-radius: 20px;
+            font-size: 1.5rem; 
+            cursor: pointer; 
+    }
+    }
 `;
 
 

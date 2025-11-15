@@ -7,9 +7,12 @@ import {    LinkSessao,
             LinkSessaoWrapper, 
             InformacaoUsuario
         } from "./style";
-import logo_cpe from "../../Images/logo_cpe.png";
+import Modal from "../../Components/modal";
+import logo_cpe from "../../Images/logo_cpe.svg";
+import { useState } from "react";
 
 export default function Perfil(){
+    const [openModal, setOpenModal] = useState(false)
 
     return(
         <>
@@ -39,9 +42,8 @@ export default function Perfil(){
             </InformacaoUsuario>
 
             <ButtonWraper>
-                <Button
-                    onClick={() => navigate("/")}
-                >EDITAR</Button>
+                <Button onClick={() => setOpenModal(true)}>EDITAR</Button>
+                <Modal isOpen = {openModal} onClose={() => setOpenModal(false)} />
             </ButtonWraper>
             
         </>

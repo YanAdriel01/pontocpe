@@ -12,33 +12,59 @@ export const InputString = styled.input`
   padding-left: 23px;
 
   //menor tamanho: até 320px
-    @media (max-width: 320px){
-
-        width: 250px;
-        height: 30px;
-        font-size: 12px;
+    @media (max-width: 320px) {
+        width: 100%;
+        max-width: 280px;
+        height: 45px;
+        font-size: 0.9rem;
+        padding-left: 16px;
     }
 
+    //celulares: 320 - 480px
+    @media (max-width: 480px) {
+        width: 100%;
+        max-width: 389px;
+        height: 45px;
+        font-size: 1rem;
+        padding-left: 18px;
+    }
 
+    //tablets pequenos e telefones maiores: 480 - 768px
+    @media (max-width: 768px) {
+        width: 100%;
+        max-width: 600px;
+        height: 50px;
+        font-size: 1rem;
+        padding-left: 20px;
+    }
 `;
 
 const PasswordWrapper = styled.div`
   position: relative;
   width: 650px;
   height: 54px;
+  margin: auto;
 
   //menor tamanho: até 320px
-    @media (max-width: 320px){
+  @media (max-width: 320px) {
+    width: 90%;
+    max-width: 280px;
+    height: 45px;
+  }
 
-        width: 250px;
-        height: 30px;
-        font-size: 12px;
-    }
-`;
+  //celulares: 320 - 480px
+  @media (max-width: 480px) {
+    width: 90%;
+    max-width: 389px;
+    height: 45px;
+  }
 
-const PasswordInputField = styled(InputString)`
-  padding-right: 55px; 
-  box-sizing: border-box;
+  //tablets pequenos e telefones maiores: 480 - 768px
+  @media (max-width: 768px) {
+    width: 95%;
+    max-width: 600px;
+    height: 50px;
+  }
 `;
 
 const IconeOlho = styled.button`
@@ -64,8 +90,9 @@ const IconeOlho = styled.button`
 
   svg {
     color: #666;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
   }
 
   &:hover {
@@ -76,12 +103,6 @@ const IconeOlho = styled.button`
   &:active {
     transform: translateY(-50%) scale(0.95);
   }
-  //menor tamanho: até 320px
-  @media (max-width: 320px){
-    width: 15px;
-    height: 15px;
-  }
-
 `;
 
 export const PasswordInput = ({ placeholder = "Senha", value, onChange }) => {

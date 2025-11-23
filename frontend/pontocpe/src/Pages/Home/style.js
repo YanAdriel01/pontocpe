@@ -17,7 +17,6 @@ export const LinkSessaoWrapper = styled.nav`
     flex-direction: column;
     gap: 3px;
     padding-right: 20px; 
-    height: 0px;
 
   }
   //celulares: 321 - 480px
@@ -27,8 +26,6 @@ export const LinkSessaoWrapper = styled.nav`
     flex-direction: column ;
     gap: 5px;
     padding-right: 20px;
-    background-color : blue ;
-    height: 0px;
   }
   //celulares: 481 – 768px
   @media (min-width: 481px) and (max-width: 768px){
@@ -90,8 +87,8 @@ export const LinkSessao = styled.a`
   //celulares: 321 - 480px
   @media (min-width: 321px) and (max-width: 480px){
 
-    font-size: 1.2rem;
-    transform: translate(0%, 110%);
+    font-size: 0.8rem;
+    transform: translate(0%, -370%);
 
     &:hover{
       
@@ -132,3 +129,35 @@ export const LinkSessao = styled.a`
     }
   }
 `;
+
+export const TabelaWrapper = styled.div`
+
+  background-color: blue;
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  max-width: 80%;
+  height: 700px;
+
+  table{
+    width: 90%;
+    height: 59px;
+    border-radius: 15px;
+    background-color: none;
+    margin: auto;
+  }
+  th{
+    background-color: #FFE712;
+    border-radius: 16px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2rem;
+    color: #000000;
+  }
+
+
+`
+
+
+
+

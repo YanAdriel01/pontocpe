@@ -1,5 +1,5 @@
 import { Header } from "../../Components/Components";
-import { LinkSessao,LinkSessaoWrapper } from "./style";
+import { LinkSessao,LinkSessaoWrapper,TabelaWrapper } from "./style";
 import logo_cpe from "../../Images/logo_cpe.svg";
 import { Carousel } from "../../Components/Carousel/Carousel";
 import carouselData from "../../data/CarouselData.json"
@@ -22,7 +22,20 @@ export default function Home(){
                 </LinkSessaoWrapper>
             </Header>
 
-            <Carousel data={carouselData}/>
+            <Carousel data={carouselData}>
+
+            </Carousel>
+
+            <TabelaWrapper>
+                <table>
+                    <thead>
+                        <th scope="col">MEMBRO</th>
+                        <th scope="col">CHEGADA</th>
+                        <th scope="col">TEMPO</th>
+                    </thead>
+
+                </table>
+            </TabelaWrapper>
 
 
         </>

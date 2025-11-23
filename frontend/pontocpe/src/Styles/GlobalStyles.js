@@ -19,7 +19,6 @@ const GlobalStyles = createGlobalStyle`
     body {
         line-height: 1.5;
         color: #333;
-        background-color: #ffffff;
         z-index: 0;
     }
     #root {

@@ -9,8 +9,8 @@ export const CarouselContainer = styled.div`
     width: 800px; 
     height: 493px;
     
-    transform: translate(0%,25%);
-    margin: auto;
+    /*transform: translate(0%,25%);*/
+    margin: 81px auto;
 
     overflow: hidden; 
 

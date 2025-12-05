@@ -1,39 +1,68 @@
 const ProjetoModel = require("../Models/ProjetoModel");
 
 class ProjetoControler{
-
     // create - POST
-
     async create(req, res){
-        const projeto = await ProjetoModel.create(req.body);
-
-        return res.status(200).json(projeto);
-
+        try {
+            const projeto = await ProjetoModel.create(req.body);
+            return res.status(200).json(projeto);
+        } catch (error){
+            res
+                .status(500)
+                .json({message: "Deu ruim aqui Post-projeto", error: error.message });
+        }
     }
 
     // read - GET
-
     async read(req, res){
-        const projeto = await ProjetoModel.find();
-
-        return res.status(200).json(projeto);
-
+        try {
+            const projeto = await ProjetoModel.find();
+            return res.status(200).json(projeto);
+        } catch (error){
+            res
+                .status(500)
+                .json({message: "Deu ruim aqui Get-projeto", error: error.message });
+        }
     }
-
     // updatde - PUT
+    async update(req, res){
+        try {
+            const { id } = req.params;
+            const projetoEncontrado = await ProjetoModel.findById(id);
 
-    // delete - DELETE
+            if (!projetoEncontrado)
+                return res
+                        .status(404)
+                        .json({message: "Projeto não encontrado"});
 
-    async delete(req, res){
-        const { id } = req.params
-        
-        await ProjetoModel.findByIdAndDelete(id);
-
-        return res.status(200).json({"message": "projeto deletado com sucesso!"})
-
+            
+            return res.status(200).json(projeto);
+        } catch (error){
+            res
+                .status(500)
+                .json({message: "Deu ruim aqui Put-projeto", error: error.message });
+        }
     }
+    // delete - DELETE
+    async delete(req, res){
+        try {
+            const { id } = req.params
+            const projetoEncontrado = await ProjetoModel.findById(id);
 
+            if (!projetoEncontrado)
+                return res
+                        .status(404)
+                        .json({message: "Projeto não encontrado" });
 
+            await projetoEncontrado.deleteOne();
+
+            return res.status(200).json({"message": "projeto deletado com sucesso!"});
+        } catch (error){
+            res
+                .status(500)
+                .json({message: "Deu ruim aqui Delete-projeto", error: error.message });
+        }
+    }
 }
 
 module.exports = new ProjetoControler ();

@@ -4,7 +4,10 @@ const Schema = mongoose.Schema;
 
 const ProjetoSchema = new Schema({
     
-    nome: String,
+    nome: {
+        type: String,
+        unique: true
+    },
     cor: String,
 
 })

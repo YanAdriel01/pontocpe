@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 async function startDB(){
-    await mongoose.connect('mongodb+srv://yanadriel:Hnd3ya97HuhIYT2P@pontocpe.xnhloac.mongodb.net/?retryWrites=true&w=majority&appName=PontoCPE')
+    await mongoose.connect(
+        process.env.MONGO_URI
+    );
+
+    console.log("Banco de dados inicializado sem problemas");
 }
 
 module.exports = startDB;

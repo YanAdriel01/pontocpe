@@ -10,22 +10,25 @@ import {    LinkSessao,
 import Modal from "../../Components/modal";
 import logo_cpe from "../../Images/logo_cpe.svg";
 import { useState } from "react";
+import useAuthStore from "../../stores/auth";
 
 export default function Perfil(){
-    const [openModal, setOpenModal] = useState(false)
+    const [openModal, setOpenModal] = useState(false);
+    const usuario = useAuthStore((state) => state.usuario);
 
     return(
         <>
             <Header>
 
-                <a href="/" className="icon_cpe">
+                <a href="/home" className="icon_cpe">
                     <img src={logo_cpe} alt="Consultoria de Projetos Elétricos" className="logo_cpe"/>
                 </a>
                 <LinkSessaoWrapper>
                 
-                    <LinkSessao href="/">HOME</LinkSessao>
+                    <LinkSessao href="/home">HOME</LinkSessao>
                     <LinkSessao href="/perfil" style={{textDecoration: "underline"}}>PERFIL</LinkSessao>
                     <LinkSessao href="/usuarios">USUARIOS</LinkSessao>
+                    <LinkSessao href="/gerenciarProjetos">PROJETOS</LinkSessao>
 
                 </LinkSessaoWrapper>
 
@@ -36,9 +39,13 @@ export default function Perfil(){
             </Titulo>
             
             <InformacaoUsuario>
-                <h2> Nome: </h2>
-                <h2> E-mail: </h2>
-                <h2> Cargo: </h2>
+                {!!usuario && (
+                <>    
+                    <h2> Nome: { usuario.nome } </h2>
+                    <h2> E-mail: { usuario.email }</h2>
+                    <h2> Cargo: { usuario.cargo }</h2>
+                </>
+                )}
             </InformacaoUsuario>
 
             <ButtonWraper>

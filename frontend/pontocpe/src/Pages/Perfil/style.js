@@ -3,11 +3,13 @@ import styled from "styled-components";
 
 
 export const LinkSessaoWrapper = styled.nav`
-
+  flex: 1; 
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 80px;
+  background-color: transparent;
+  
 
   //menor tamanho: até 320px
   @media (max-width: 320px){
@@ -72,21 +74,19 @@ export const LinkSessao = styled.a`
   text-decoration: none;
   position: relative;
 
-  transform: translate(0%,-120%);
-
   &:hover{
     cursor: pointer;
-    transform: translate(0%, -120%) translateY(-3px);
+    transform:translateY(-3px);
     color: #3c3c3c;
   }
 
   //menor tamanho: até 320px
   @media (max-width: 320px) {
     font-size: 0.8rem;
-    transform: translate(0%, 90%);
+    transform: translate(0%, 450%);
     &:hover{
       
-      transform: translate(0%, 100%);
+      transform: translate(0%, 445%);
     }
 
   }
@@ -95,10 +95,10 @@ export const LinkSessao = styled.a`
   @media (min-width: 321px) and (max-width: 480px){
 
     font-size: 1.2rem;
-    transform: translate(0%, 110%);
+    transform: translate(0%, 370%);
     &:hover{
       
-      transform: translate(0%, 100%);
+      transform: translate(0%, 365%);
     }
   }
 
@@ -109,7 +109,7 @@ export const LinkSessao = styled.a`
     transform: translate(0%, -130%);
     &:hover{
       
-      transform: translate(0%, 100%);
+      transform: translate(0%, -138%);
     }
   }
 
@@ -117,10 +117,10 @@ export const LinkSessao = styled.a`
   @media (min-width: 769px) and (max-width: 1024px){
 
     font-size: 1.7rem;
-    transform: translate(0%, -190%);
+    transform: translate(0%, -130%);
     &:hover{
       
-      transform: translate(0%, -200%);
+      transform: translate(0%, -138%);
     }
   }
 
@@ -128,10 +128,10 @@ export const LinkSessao = styled.a`
   @media (min-width: 1025px) and (max-width: 1366px){
 
     font-size: 2.1rem;
-    transform: translate(0%, -150%);
+    transform: translate(0%, -100%);
     &:hover{
       
-      transform: translate(0%, -170%);
+      transform: translate(0%, -108%);
     }
   }
 `;

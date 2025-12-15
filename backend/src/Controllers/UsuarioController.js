@@ -8,7 +8,6 @@ class UsuarioController {
             const usuario = await UsuarioModel.create(req.body);
 
             const { senha, ...novoUsuario } = usuario.toObject();
-
             res.status(200).json(novoUsuario);
 
         } catch (error){

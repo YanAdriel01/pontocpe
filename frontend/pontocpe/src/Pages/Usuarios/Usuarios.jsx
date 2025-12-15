@@ -8,14 +8,15 @@ export default function Usuarios(){
         <>
             <Header>
 
-                <a href="/" className="icon_cpe">
+                <a href="/home" className="icon_cpe">
                     <img src={logo_cpe} alt="Consultoria de Projetos Elétricos" className="logo_cpe"/>
                 </a>
                 <LinkSessaoWrapper>            
                 
-                    <LinkSessao href="/">HOME</LinkSessao>
+                    <LinkSessao href="/home">HOME</LinkSessao>
                     <LinkSessao href="/perfil">PERFIL</LinkSessao>
                     <LinkSessao href="/usuarios" style={{textDecoration: "underline"}}>USUARIOS</LinkSessao>
+                    <LinkSessao href="/gerenciarProjetos">PROJETOS</LinkSessao>
 
                 </LinkSessaoWrapper>
 

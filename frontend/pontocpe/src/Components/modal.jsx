@@ -1,5 +1,8 @@
 import { Children } from "react";
 import styled from "styled-components";
+import { useState } from "react";
+import useAuthStore from "../stores/auth";
+import { toast } from "react-toastify";
 
 const ModalOverlay = styled.div`
     position: fixed;
@@ -26,10 +29,14 @@ const ModalWrapper = styled.div`
     height: 615px;
     gap: 25px;
 
-    background-color: #FFFFFF;
+    background-color: #696969;
     border-radius: 10px;
-    border: 2px solid #CCCCCC;
+    border: 2px solid #292828;
     z-index: 101;
+
+    h2{
+        color: #000;
+    }
 
     .tituloModal{
         font-family: 'Roboto', sans-serif;
@@ -58,17 +65,28 @@ const ModalWrapper = styled.div`
             transform: scale(1.2);
         }
     }
+    form{
 
-    input{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 15px;
+        background-color: transparent;
+
+        input{
         width: 485px;
         height: 49px;
-        border: 2px solid #C4C4C4;
+        border: 2px solid #292828;
         border-radius: 20px;
-        color: #C4C4C4;
+        color: #292828;;
         background-color: #FFFFFF;
         padding-left: 20px;
     }
 
+
+    }
+    
     .botaoSalvarEdicao{
         position: absolute;
         bottom: 34px;
@@ -96,6 +114,38 @@ const ModalWrapper = styled.div`
 
 export default function Modal({ isOpen, onClose }){
 
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [cargo, setCargo] = useState("");
+    const usuario = useAuthStore((state) => state.usuario);
+    const id = usuario?.id; //puxando o id do usuário
+    console.log({id})
+
+
+    const handleSubmit = async(e) =>{
+        e.preventDefault();
+
+        try {
+            const atualizacao = {};
+
+            if (nome.trim() !== "") atualizacao.nome = nome;
+            if (email.trim() !== "") atualizacao.email = email;
+            if (cargo.trim() !== "") atualizacao.cargo = cargo;
+            if (senha.trim() !== "") atualizacao.senha = senha;
+
+            const res = await api.put("usuarios/${id}",atualizacao);
+            
+            toast.success("usuário alterado");
+            onClose();
+            
+        } catch (error) {
+            toast.error("Erro no formulário " + err.message);
+            
+        }
+
+    }
+
     if (!isOpen) return null;
 
     return(
@@ -104,12 +154,14 @@ export default function Modal({ isOpen, onClose }){
             <ModalWrapper onClick={(e) => e.stopPropagation()}>
                 <h2 className="tituloModal">Editar usuário</h2>
                 <button className="botaoFecharModal" onClick={onClose}>x</button>
-                <input placeholder="Nome Completo" type="text" />
-                <input placeholder="E-mail" type="E-mail" />
-                <input placeholder="Cargo" type="text" />
-                <input placeholder="Senha" type="password"></input>
-                <input placeholder="Repita a Senha" type="password"></input>
-                <button className="botaoSalvarEdicao" onClick={() => {alert("Edição realizada"); onClose()}}> SALVAR </button>
+                <form nSubmit={handleSubmit}>
+                    <input placeholder="Nome Completo" type="text" id="nome" onChange={(e) => setNome(e.target.value)}/>
+                    <input placeholder="E-mail" type="E-mail" id="email" onChange={(e) => setEmail(e.target.value)}/>
+                    <input placeholder="Cargo" type="text" id="cargo" onChange={(e) => setCargo(e.target.value)}/>
+                    <input placeholder="Senha" type="password" id="senha" onChange={(e) => setSenha(e.target.value)}></input>
+                    <input placeholder="Repita a Senha" type="password"></input>
+                    <button className="botaoSalvarEdicao" type="submit"> SALVAR </button>
+                </form>
             </ModalWrapper>
         </ModalOverlay>
     )

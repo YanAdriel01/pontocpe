@@ -116,7 +116,9 @@ export const PasswordInput = ({ placeholder = "Senha", value, onChange }) => {
         value={value}
         onChange={onChange}
       />
-      <IconeOlho onClick={() => setShowPassword((prev) => !prev)}>
+      <IconeOlho 
+        type="button"
+        onClick={() => setShowPassword((prev) => !prev)}>
         {showPassword ? <EyeOff /> : <Eye />}
       </IconeOlho>
     </PasswordWrapper>

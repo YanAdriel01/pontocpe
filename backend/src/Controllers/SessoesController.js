@@ -1,4 +1,3 @@
-const { populate } = require("../Models/UsuarioModel");
 const SessoesModel = require("./../Models/SessoesModel");
 
 class SessoesController {

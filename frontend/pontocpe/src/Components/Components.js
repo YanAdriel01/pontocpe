@@ -7,6 +7,9 @@ export const Header = styled.div`
     width: 100%;
     height: 131px;
     background-color: #FFE712;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
 
     .logo_cpe{
 
@@ -107,7 +110,7 @@ export const Titulo = styled.h1`
 
 
 `;
-export const InputWraper = styled.div`
+export const InputForm = styled.form`
     //tablet normal: 769 - 1024px
     margin: auto;
     margin-top: 40px;
@@ -117,6 +120,17 @@ export const InputWraper = styled.div`
     flex-direction: column;
     gap: 20px;
 
+    span{
+        color: aliceblue;
+    }
+
+    h4{
+        color: #FFE712;
+        font-family: 'Roboto', sans-serif;
+        font-size: 3rem;
+    }
+
+    
 
 `;
 

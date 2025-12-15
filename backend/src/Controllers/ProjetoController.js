@@ -33,7 +33,11 @@ class ProjetoControler{
             if (!projetoEncontrado)
                 return res
                         .status(404)
-                        .json({message: "Projeto não encontrado"});
+                        .json({message: "Usuário não encontrado" });
+
+            const projeto = await projetoEncontrado.set(req.body).save();
+
+            return res.status(200).json({message: "Usuário alterado com sucesso", usuario: projeto});
 
             
             return res.status(200).json(projeto);

@@ -10,7 +10,7 @@ import {    Header,
 import { PasswordInput } from "../../Components/PasswordInput.jsx";
 import { useForm } from "react-hook-form";
 import logo_cpe from "../../Images/logo_cpe.svg"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import api from "../../services/api/api.js";
 import useAuthStore from "../../stores/auth.js";
@@ -24,6 +24,12 @@ export default function Login(){
    const usuario = useAuthStore((state) => state.usuario);
    const setToken = useAuthStore((state) => state.setToken);
    const navigate = useNavigate();
+
+   useEffect(() => {
+       if (usuario) {
+           navigate("/home");
+       }
+   }, [usuario, navigate]);
 
    const handleSubmit = async(e) =>{
         e.preventDefault();
@@ -95,8 +101,6 @@ export default function Login(){
                         type="submit"
                     >ENTRAR</Button>
                 </ButtonWraper>
-
-                { !!usuario && navigate("/home")}
 
 
             </InputForm>

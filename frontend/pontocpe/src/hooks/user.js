@@ -6,7 +6,9 @@ import {
             DeleteUsuario, 
             PostSessao,
             GetSessao,
-            DeleteSessao
+            DeleteSessao,
+            PostProjeto,
+            PutProjeto
         } from "../services/api/endpoints";
 
 export function useGetUsuario()
@@ -72,5 +74,25 @@ export function useDeleteSessao({
 } = {}) {
 
     return useMutation({ mutationFn: (id) => DeleteSessao(id), onSuccess, onError});
+    
+}
+
+//projetos
+
+export function usePostProjeto({
+    onSuccess = () => {},
+    onError = () => {},
+} = {}) {
+
+    return useMutation({ mutationFn: PostProjeto, onSuccess, onError});
+    
+}
+
+export function usePutProjeto({
+    onSuccess = () => {},
+    onError = () => {},
+} = {}) {
+
+    return useMutation({ mutationFn: ({id, body}) => PutProjeto(id,body), onSuccess, onError});
     
 }

@@ -39,13 +39,12 @@ export default function Perfil(){
             </Titulo>
             
             <InformacaoUsuario>
-                {!!usuario && (
                 <>    
-                    <h2> Nome: { usuario.nome } </h2>
-                    <h2> E-mail: { usuario.email }</h2>
-                    <h2> Cargo: { usuario.cargo }</h2>
+                    <h2> Nome: <span className="info">{ usuario.nome }</span> </h2>
+                    <h2> E-mail: <span className="info">{ usuario.email }</span></h2>
+                    <h2> Cargo: <span className="info">{ usuario.cargo }</span></h2>
                 </>
-                )}
+                
             </InformacaoUsuario>
 
             <ButtonWraper>

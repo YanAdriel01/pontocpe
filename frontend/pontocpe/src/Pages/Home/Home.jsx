@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Header } from "../../Components/Components";
+import { Header,InputForm } from "../../Components/Components";
 import { 
             LinkSessao, 
             LinkSessaoWrapper, 
@@ -7,7 +7,7 @@ import {
             LoginButton,
             LoginButtonWrapper,
             DeslogarButtonWrapper,
-            DeslogarButton
+            DeslogarButton,
             
         } from "./style";
 import logo_cpe from "../../Images/logo_cpe.svg";
@@ -17,23 +17,59 @@ import LoginModal from "../../Utils/LoginModal";
 import { Trash2, LogOut} from "lucide-react";
 import useAuthStore from "../../stores/auth";
 import { useNavigate } from "react-router-dom";
+import api from "../../services/api/api";
+import { toast } from "react-toastify";
 
 
 export default function Home(){
 
     const [openModal, setOpenModal] = useState(false);
-    const [sessao, setSessao] = useState(null);
+    const [sessoes, setSessoes] = useState([]);
+    const [carregando, setCarregando] = useState(false);
 
     const usuario = useAuthStore((state) => state.usuario);
     const clearAuth = useAuthStore((state) => state.clearAuth);
     const navigate = useNavigate();
 
+    const getSessoes = async () => {
+        try {
+            setCarregando(true);
+            const res = await api.get("sessoes");
+            setSessoes(res.data);
+            
+        } catch (error) {
+            const msg = error.response?.data?.message || "Erro ao buscar sessões";
+            toast.error("Erro: " + msg);
+        }
+        finally{
+            setCarregando(false);
+        }
+    };
+
+    const deleteSessoes = async (id) => {
+
+        const confirmar = window.confirm("Tem certeza que deseja encerrar esta sessão?");
+        if (!confirmar) return;
+
+        try {
+            await api.delete(`sessoes/${id}`);
+            toast.success("Sessão deletada com sucesso!");
+            getSessoes();
+        }
+        catch (error){
+            const msg = error.response?.data?.message || "Erro ao deletar sessão";
+            toast.error(msg); 
+        }
+    };
+
     useEffect(() => {
-        if (!usuario) navigate("/");
-    }, [usuario, navigate]);
+        getSessoes();
+    }, []);
 
     const calcularTempo = (chegadaISO) => {
-         const chegada = new Date(chegadaISO);
+        if (!chegadaISO) return "00:00";
+
+        const chegada = new Date(chegadaISO);
         const agora = new Date();
 
         const diffMs = agora - chegada;
@@ -43,22 +79,31 @@ export default function Home(){
         const minutos = diffMin % 60;
 
         return `${String(horas).padStart(2, "0")}:${String(minutos).padStart(2, "0")}`;
-    };
+    }; 
 
-    const handleSessaoCriada = (dadosSessao) => {
-        setSessao(dadosSessao);
+    const handleSessaoCriada = (novaSessao) => {
         setOpenModal(false);
+        getSessoes();
     };
     
     const logout = () => {
         clearAuth();
-        setSessao(null);
-        navigate("/");
-    }
+    };
 
-    return(
+    if (carregando) return(
+    
+        <>  
+        <InputForm>
+            <h4>Carregando...</h4>
+        </InputForm>
+        
+        </>
+    );
+
+     return(
         <>
-            { !usuario && navigate("/") }
+            {!usuario}
+            
             <Header>
 
                 <a href="/home" className="icon_cpe">
@@ -98,36 +143,54 @@ export default function Home(){
                                 <th></th>
                             </tr>
                         </thead>
-                        {sessao && (
+                        
                         <tbody>
-                            <tr>
-                                <td>
-                                    <strong>{sessao.id_usuario.nome}</strong>
-                                    <br />
-                                    <span className="cargo">{sessao.id_usuario.status}</span>
-                                </td>
+                            
+                            {sessoes.map((sessao) => {
+                                const validateSessao = usuario?._id === sessao.id_usuario?._id;
+                                return (
+                            
+                                <tr key={sessao._id || sessao.createdAt}>
+                                    <td>
+                                        <strong>{sessao.id_usuario?.nome || "Usuário não identificado"}</strong>
+                                        <br />
+                                        <span className="cargo">
+                                            {sessao.status || sessao.id_usuario?.cargo || "Sem cargo"}
+                                        </span>
+                                    </td>
 
-                                <td>
-                                    <span className="tag">
-                                        {new Date(sessao.createdAt).toLocaleTimeString("pt-BR", {
-                                            hour: "2-digit",
-                                            minute: "2-digit"
-                                        })}
-                                    </span>
-                                </td>
+                                    <td>
+                                        <span className="tag">
+                                            {new Date(sessao.createdAt).toLocaleTimeString("pt-BR", {
+                                                hour: "2-digit",
+                                                minute: "2-digit"
+                                            })}
+                                        </span>
+                                    </td>
 
-                                <td>
-                                    <span className="tag">
-                                        {calcularTempo(sessao.createdAt)}
-                                    </span>
-                                </td>
+                                    <td>
+                                        <span className="tag">
+                                            {calcularTempo(sessao.createdAt)}
+                                        </span>
+                                    </td>
 
-                                <td>
-                                    <button className="delete-btn"><Trash2 /></button>
-                                </td>
-                            </tr>
+                                    <td>
+                                        {validateSessao && (
+                                            <button 
+                                                className="delete-btn" 
+                                                onClick={() => deleteSessoes(sessao._id)}
+                                                title="Encerrar sessão"
+                                            >
+                                                <Trash2 />
+                                            </button>
+                                        )}
+                                    </td>
+                                </tr>
+                            );
+                        
+                        })}
                         </tbody>
-                        )}
+                    
                     </table>
                 </TabelaWrapper>
             
@@ -136,4 +199,4 @@ export default function Home(){
             {openModal && <LoginModal close={() => setOpenModal(false)} />}
         </>
     );
-}
+} 

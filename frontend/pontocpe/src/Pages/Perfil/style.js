@@ -159,6 +159,15 @@ export const InformacaoUsuario = styled.div`
     font-weight: 600;
     background-color: #696969;
     color: #FFE712;
+
+
+    .info{
+      font-family: 'Roboto', sans-serif;
+      font-size: 2rem;
+      font-weight: 600;
+      background-color: #696969;
+      color: #FFFFE0;
+    }
   }
 
   //menor tamanho: 320px

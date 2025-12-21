@@ -9,7 +9,7 @@ const ProjetoSchema = new Schema({
         unique: true
     },
     cor: String,
-
+    description: String
 })
 
 const ProjetoModel = mongoose.model('projetos', ProjetoSchema)

@@ -35,7 +35,10 @@ export default function LoginModal({ close, onSessionCreated }) {
     const { mutate: criarSessao } = usePostSessao({
 
         onSuccess: (sessaoCriada) => {
-            toast.success("Sessão criada");
+            toast.success("Sessão criada! Recarregando");
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
 
             if (onSessionCreated) {
                 onSessionCreated(sessaoCriada);

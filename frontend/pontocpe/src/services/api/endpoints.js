@@ -36,7 +36,6 @@ export async function GetSessao() {
 
     //create
 export async function PostSessao(body) {
-    // O 'body' deve ser um objeto, ex: { id_usuario: "123..." }
     const { data } = await api.post("/sessoes", body);
     return data;  
 }
@@ -47,7 +46,7 @@ export async function DeleteSessao() {
     return data;  
 }
 
-/*
+
 //Projetos
 
     //read
@@ -57,14 +56,14 @@ export async function GetProjeto() {
 }
 
     //create
-export async function PostProjeto() {
-    const {data} = api.post("/projetos")
-    return data;  
+export async function PostProjeto(body) {
+    const {data} = await api.post(`projetos`, body);
+    return data;
 }
 
     //update
-export async function PutProjeto() {
-    const {data} = api.put("/projetos/:id")
+export async function PutProjeto(id, body) {
+    const {data} = await api.put(`projetos/${id}`, body)
     return data;  
 }
 
@@ -72,5 +71,5 @@ export async function PutProjeto() {
 export async function DeleteProjeto() {
     const {data} = api.delete("/projetos/:id")
     return data;  
-} */
+} 
 

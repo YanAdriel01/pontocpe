@@ -20,7 +20,9 @@ const update = validateRequest({
     body: z.object({
         nome: z.string().optional(),
         cor:    z.string({ required_error: "A cor é obrigatória"})
-                .regex(/^#[0-9A-Fa-f]{6}$/, "Cor inválida, deve ser hexadecimal"),
+                .regex(/^#[0-9A-Fa-f]{6}$/, "Cor inválida, deve ser hexadecimal")
+                .optional(),
+        description: z.string().optional(),
     }),
     params: z.object({
         id: z.custom(mongoose.isValidObjectId, "O id não é válido!"),

@@ -39,8 +39,6 @@ class ProjetoControler{
 
             return res.status(200).json({message: "Usuário alterado com sucesso", usuario: projeto});
 
-            
-            return res.status(200).json(projeto);
         } catch (error){
             res
                 .status(500)

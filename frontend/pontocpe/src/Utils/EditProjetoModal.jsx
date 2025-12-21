@@ -1,7 +1,6 @@
 import { ModalBackground, ModalContainer } from "../Pages/Projetos/style";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import useAuthStore from "../stores/auth";
 import { usePutProjeto } from "../hooks/user";
 import { useEffect } from "react";
 

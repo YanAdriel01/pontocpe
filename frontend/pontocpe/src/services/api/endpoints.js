@@ -21,8 +21,8 @@ export async function PutUsuario(id, body) {
 }
 
     //delete
-export async function DeleteUsuario() {
-    const { data } = await api.delete(`usuarios:${id}`)
+export async function DeleteUsuario(id) {
+    const { data } = await api.delete(`usuarios/${id}`)
     return data;  
 }
 

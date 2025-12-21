@@ -49,7 +49,12 @@ export default function Perfil(){
 
             <ButtonWraper>
                 <Button onClick={() => setOpenModal(true)}>EDITAR</Button>
-                <Modal isOpen = {openModal} onClose={() => setOpenModal(false)} />
+                {openModal && (
+                    <Modal      
+                        close={() => setOpenModal(false)} 
+                        atualizarDados={() => window.location.reload()} 
+                    />
+                )}
             </ButtonWraper>
             
         </>

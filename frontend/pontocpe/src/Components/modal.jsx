@@ -1,8 +1,9 @@
-import { Children } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import useAuthStore from "../stores/auth";
 import { toast } from "react-toastify";
+import { usePutUsuario } from "../hooks/user";
 
 const ModalOverlay = styled.div`
     position: fixed;
@@ -112,55 +113,136 @@ const ModalWrapper = styled.div`
 `;
 
 
-export default function Modal({ isOpen, onClose }){
+export default function Modal({ close, atualizarDados }){
 
-    const [nome, setNome] = useState("");
-    const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
-    const [cargo, setCargo] = useState("");
     const usuario = useAuthStore((state) => state.usuario);
-    const id = usuario?.id; //puxando o id do usuário
-    console.log({id})
+    const setUsuario = useAuthStore((state) => state.setUsuario);
 
+    const userId = usuario?._id || usuario?.id;
 
-    const handleSubmit = async(e) =>{
-        e.preventDefault();
+    const {
+            handleSubmit,
+            register,
+            reset,
+            watch,
+            formState:{ dirtyFields },
+        } = useForm({
+            defaultValues:{
+                nome: "",
+                email: "",
+                cargo: "",
+                senha: "",
+                confirmarSenha: ""
+            }
+        });
 
-        try {
-            const atualizacao = {};
+        const senhaDigitada = watch("senha");
 
-            if (nome.trim() !== "") atualizacao.nome = nome;
-            if (email.trim() !== "") atualizacao.email = email;
-            if (cargo.trim() !== "") atualizacao.cargo = cargo;
-            if (senha.trim() !== "") atualizacao.senha = senha;
+    const { mutate: editarUsuario, isLoading } = usePutUsuario ({
+        onSuccess: () => {
+            toast.success("Usuário alterado com sucesso!");
 
-            const res = await api.put("usuarios/${id}",atualizacao);
-            
-            toast.success("usuário alterado");
-            onClose();
-            
-        } catch (error) {
-            toast.error("Erro no formulário " + err.message);
-            
+            if (data && setUsuario){
+                setUsuario(data);
+            }
+
+            if (atualizarDados) atualizarDados();
+            close();
+        },
+        onError: (error) => {
+            toast.error("Erro no formulário" + error.message);
+        }
+    });
+
+    useEffect(() => {
+        if (usuario){
+            reset({
+                nome: usuario.nome || "",
+                email: usuario.email || "",
+                senha: "", 
+                confirmarSenha: "",
+                cargo: usuario.cargo || ""
+            });
         }
 
-    }
+    }, [usuario, reset]);
 
-    if (!isOpen) return null;
+    const response = (data) => {
 
+        if(!userId){
+            toast.error("Erro: ID do usuário não encontrado.");
+            return;
+        }
+        if (data.senha) {
+            if (data.senha !== data.confirmarSenha) {
+                toast.error("As senhas não coincidem!");
+                return;
+            }
+        }
+
+        const dadosAlterados = Object.keys(dirtyFields).reduce((acc, key) => {
+            if (key === 'confirmarSenha') return acc;
+
+            if (dirtyFields[key]) {
+                const valor = data[key];
+                if (valor !== "" && valor !== null && valor !== undefined) {
+                    acc[key] = valor;
+                }
+            }
+            return acc;
+        }, {});
+
+        if (Object.keys(dadosAlterados).length === 0) {
+            toast.info("Nenhuma alteração realizada.");
+            close();
+            return;
+        }
+        editarUsuario({
+            id: userId,
+            body: dadosAlterados
+        });
+
+    };
+    
+    
     return(
         
-        <ModalOverlay onClick={onClose}>
+        <ModalOverlay onClick={close}>
             <ModalWrapper onClick={(e) => e.stopPropagation()}>
                 <h2 className="tituloModal">Editar usuário</h2>
-                <button className="botaoFecharModal" onClick={onClose}>x</button>
-                <form nSubmit={handleSubmit}>
-                    <input placeholder="Nome Completo" type="text" id="nome" onChange={(e) => setNome(e.target.value)}/>
-                    <input placeholder="E-mail" type="E-mail" id="email" onChange={(e) => setEmail(e.target.value)}/>
-                    <input placeholder="Cargo" type="text" id="cargo" onChange={(e) => setCargo(e.target.value)}/>
-                    <input placeholder="Senha" type="password" id="senha" onChange={(e) => setSenha(e.target.value)}></input>
-                    <input placeholder="Repita a Senha" type="password"></input>
-                    <button className="botaoSalvarEdicao" type="submit"> SALVAR </button>
+                <button className="botaoFecharModal" onClick={close}>x</button>
+                <form onSubmit={handleSubmit(response)}>
+
+                    <input 
+                        {...register("nome")} 
+                        placeholder="Nome Completo" 
+                        type="text" 
+                    />
+                    <input 
+                        {...register("email")}
+                        placeholder="E-mail" 
+                        type="E-mail"
+                    />
+                    <input 
+                        {...register("senha")}
+                        placeholder="Nova Senha (deixe vazio para manter)"
+                        type="password" 
+                        autoComplete="new-password"
+                    />
+                    <input 
+                        {...register("confirmarSenha")}
+                        placeholder="Repita a Senha"
+                        type="password"
+                    />
+                    <input 
+                        {...register("cargo")} 
+                        placeholder="Cargo"
+                        type="text" 
+                    />
+
+                    <button className="botaoSalvarEdicao" type="submit"> 
+                        {isLoading ? "SALVANDO..." : "SALVAR"}
+                    </button>
                 </form>
             </ModalWrapper>
         </ModalOverlay>
